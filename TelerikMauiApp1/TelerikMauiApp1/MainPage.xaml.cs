@@ -1,5 +1,5 @@
 ﻿using Telerik.Maui.Controls.Compatibility.Common.Data;
-using TelerikMauiApp1.Models;
+using Telerik.Maui.Controls.Compatibility.DataGrid;
 
 namespace TelerikMauiApp1;
 
@@ -17,5 +17,13 @@ public partial class MainPage : ContentPage
         };
 
         dataGrid.GroupDescriptors.Add(groupDescriptor);
+
+        foreach (var column in dataGrid.Columns)
+        {
+            column.CanUserGroup = false;
+        }
+
+        dataGrid.UserGroupMode = DataGridUserGroupMode.Disabled;
+
     }
 }
