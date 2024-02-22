@@ -1,13 +1,20 @@
 ﻿namespace TelerikMauiApp1.Models;
 
+public class ExpirationDate
+{
+    public required DateTime Value { get; init; }
+}
+
 public class OptionChainRow
 {
     // Underlying Equity
     public string Symbol { get; set; }
     public double Last { get; set; }
 
+    public DateTime ExpirationDate => Expiration.Value;
+
     // Option Expiration and Strike
-    public DateTime ExpirationDate { get; set; }
+    public ExpirationDate Expiration { get; set; }
     public double Strike { get; set; }
 
     // Call Option Date

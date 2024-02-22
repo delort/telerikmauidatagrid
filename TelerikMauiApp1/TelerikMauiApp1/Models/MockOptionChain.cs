@@ -24,7 +24,7 @@ public static class MockOptionChain
             {
                 Symbol = "AAPL",
                 Last = 145.86,
-                ExpirationDate = expirationDate, 
+                Expiration = new ExpirationDate { Value = expirationDate }, 
                 Strike = 145,
                 CallLast = 0.01,
                 CallChange = 0,
@@ -43,7 +43,7 @@ public static class MockOptionChain
             {
                 Symbol = "AAPL",
                 Last = 145.86,
-                ExpirationDate = expirationDate,
+                Expiration = new ExpirationDate { Value = expirationDate },
                 Strike = 150,
                 CallLast = 0.01,
                 CallChange = 0,
@@ -62,7 +62,7 @@ public static class MockOptionChain
             {
                 Symbol = "AAPL",
                 Last = 145.86,
-                ExpirationDate = expirationDate,
+                Expiration = new ExpirationDate { Value = expirationDate },
                 Strike = 155,
                 CallLast = 0.01,
                 CallChange = 0,
@@ -81,7 +81,7 @@ public static class MockOptionChain
             {
                 Symbol = "AAPL",
                 Last = 145.86,
-                ExpirationDate = expirationDate,
+                Expiration = new ExpirationDate { Value = expirationDate },
                 Strike = 155,
                 CallLast = 0.01,
                 CallChange = 0,

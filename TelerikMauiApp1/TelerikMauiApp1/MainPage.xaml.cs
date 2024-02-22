@@ -13,7 +13,7 @@ public partial class MainPage : ContentPage
 
         PropertyGroupDescriptor groupDescriptor = new()
         {
-            PropertyName = "ExpirationDate"
+            PropertyName = "Expiration.Value"
         };
 
         dataGrid.GroupDescriptors.Add(groupDescriptor);
