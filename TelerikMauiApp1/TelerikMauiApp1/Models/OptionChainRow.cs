@@ -36,6 +36,11 @@ public class GroupingAndSorting : IComparable
 
         return sort;
     }
+
+    public override string ToString()
+    {
+        return ExpirationDate.ToString("yyyy-MM-dd");
+    }
 }
 
 public class ExpirationDate

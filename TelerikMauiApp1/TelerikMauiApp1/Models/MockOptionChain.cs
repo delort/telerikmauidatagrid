@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices.JavaScript;
-using ABI.Windows.Media.Audio;
 
 namespace TelerikMauiApp1.Models;
 
@@ -29,7 +28,8 @@ public static class MockOptionChain
 
         List<OptionChainRow> optionChain = new();
 
-        double strike = 145.0;
+        Random rnd = new();
+        double strike = rnd.Next(120, 190) * 1.0;
 
         for (int i = 0; i < 150; i++)
         {
