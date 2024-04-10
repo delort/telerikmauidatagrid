@@ -12,7 +12,6 @@
             <telerik:RadDataGrid.Columns>
                 <telerik:DataGridTextColumn PropertyName="Symbol" SizeMode="Fixed"/>
                 <telerik:DataGridNumericalColumn PropertyName="Last" />
-                <!--<telerik:DataGridNumericalColumn PropertyName="ExpirationDate" />-->
                 <telerik:DataGridNumericalColumn PropertyName="Strike"/>
                 <telerik:DataGridNumericalColumn PropertyName="CallLast"/>
                 <telerik:DataGridNumericalColumn PropertyName="CallChange"/>
@@ -27,13 +26,12 @@
                 <telerik:DataGridNumericalColumn PropertyName="PutVolume"/>
                 <telerik:DataGridNumericalColumn PropertyName="PutOpenInterest"/>
             </telerik:RadDataGrid.Columns>
-            <telerik:RadDataGrid.GroupHeaderTemplate>
-                <DataTemplate>
-                    <Grid BackgroundColor="DarkSlateGray" HorizontalOptions="StartAndExpand"  VerticalOptions="Center">
-                        <Label FontAutoScalingEnabled="True" TextColor="White" Text="{Binding .}" />
-                    </Grid>
-                </DataTemplate>
-            </telerik:RadDataGrid.GroupHeaderTemplate>
+            <telerik:RadDataGrid.GroupDescriptors>
+                <telerik:PropertyGroupDescriptor PropertyName="GroupAndSort" />
+            </telerik:RadDataGrid.GroupDescriptors>
+            <telerik:RadDataGrid.SortDescriptors>
+                <telerik:PropertySortDescriptor PropertyName="GroupAndSort" />
+            </telerik:RadDataGrid.SortDescriptors>
         </telerik:RadDataGrid>
     </Grid>
 </ContentPage>

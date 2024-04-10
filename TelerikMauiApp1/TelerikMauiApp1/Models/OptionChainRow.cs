@@ -1,5 +1,43 @@
 ﻿namespace TelerikMauiApp1.Models;
 
+public class GroupingAndSorting : IComparable
+{
+    public required DateTime ExpirationDate { get; init; }
+    public required double Strike { get; init; }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is GroupingAndSorting other)
+        {
+            return ExpirationDate == other.ExpirationDate;
+        }
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return ExpirationDate.GetHashCode();
+    }
+
+    public int CompareTo(object obj)
+    {
+        if (obj is not GroupingAndSorting other)
+        {
+            return 1;
+        }
+
+        int sort = ExpirationDate.CompareTo(other.ExpirationDate);
+
+        if (sort == 0)
+        {
+            sort = Strike.CompareTo(other.Strike);
+        }
+
+        return sort;
+    }
+}
+
 public class ExpirationDate
 {
     public required DateTime Value { get; init; }
@@ -7,6 +45,8 @@ public class ExpirationDate
 
 public class OptionChainRow
 {
+    public GroupingAndSorting GroupAndSort { get; init; }
+
     // Underlying Equity
     public string Symbol { get; set; }
     public double Last { get; set; }

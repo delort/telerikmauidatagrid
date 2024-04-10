@@ -11,19 +11,6 @@ public partial class MainPage : ContentPage
 
         BindingContext = new MainViewModel();
 
-        PropertyGroupDescriptor groupDescriptor = new()
-        {
-            PropertyName = "Expiration.Value"
-        };
-
-        dataGrid.GroupDescriptors.Add(groupDescriptor);
-
-        foreach (var column in dataGrid.Columns)
-        {
-            column.CanUserGroup = false;
-        }
-
         dataGrid.UserGroupMode = DataGridUserGroupMode.Disabled;
-
     }
 }

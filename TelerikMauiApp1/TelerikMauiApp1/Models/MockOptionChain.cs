@@ -1,4 +1,7 @@
-﻿namespace TelerikMauiApp1.Models;
+﻿using System.Runtime.InteropServices.JavaScript;
+using ABI.Windows.Media.Audio;
+
+namespace TelerikMauiApp1.Models;
 
 public static class MockOptionChain
 {
@@ -6,10 +9,16 @@ public static class MockOptionChain
     {
         List<OptionChainRow> optionChain = new();
 
-        optionChain.AddRange(GetOptionChainByDate(2024, 03, 21));
-        optionChain.AddRange(GetOptionChainByDate(2024, 04, 21));
-        optionChain.AddRange(GetOptionChainByDate(2024, 05, 21));
-        optionChain.AddRange(GetOptionChainByDate(2024, 06, 21));
+        DateTime now = DateTime.Now.Date;
+        DateTime startDate = new DateTime(now.Year, now.Month == 12 ? 1 : now.Month + 1, 1);
+
+        // do this for 72 weeks
+        for (int i = 0; i < 72; i++)
+        {
+            DateTime weekDate = startDate.AddDays(i * 7);
+
+            optionChain.AddRange(GetOptionChainByDate(weekDate.Year, weekDate.Month, weekDate.Day));
+        }
 
         return optionChain;
     }
@@ -18,33 +27,21 @@ public static class MockOptionChain
     {
         DateTime expirationDate = new(year, month, day);
 
-        List<OptionChainRow> optionChain = new()
+        List<OptionChainRow> optionChain = new();
+
+        double strike = 145.0;
+
+        for (int i = 0; i < 150; i++)
         {
-            new OptionChainRow
+            var strikevalue = strike + i * 5.0;
+
+            var row = new OptionChainRow
             {
+                GroupAndSort = new GroupingAndSorting { ExpirationDate = expirationDate, Strike = strikevalue },
                 Symbol = "AAPL",
-                Last = 145.86,
-                Expiration = new ExpirationDate { Value = expirationDate }, 
-                Strike = 145,
-                CallLast = 0.01,
-                CallChange = 0,
-                CallBid = 0,
-                CallAsk = 0,
-                CallVolume = 0,
-                CallOpenInterest = 0,
-                PutLast = 0.01,
-                PutChange = 0,
-                PutBid = 0,
-                PutAsk = 0,
-                PutVolume = 0,
-                PutOpenInterest = 0
-            },
-            new OptionChainRow
-            {
-                Symbol = "AAPL",
-                Last = 145.86,
+                Last = 350.51,
                 Expiration = new ExpirationDate { Value = expirationDate },
-                Strike = 150,
+                Strike = strikevalue,
                 CallLast = 0.01,
                 CallChange = 0,
                 CallBid = 0,
@@ -57,46 +54,10 @@ public static class MockOptionChain
                 PutAsk = 0,
                 PutVolume = 0,
                 PutOpenInterest = 0
-            },
-            new OptionChainRow
-            {
-                Symbol = "AAPL",
-                Last = 145.86,
-                Expiration = new ExpirationDate { Value = expirationDate },
-                Strike = 155,
-                CallLast = 0.01,
-                CallChange = 0,
-                CallBid = 0,
-                CallAsk = 0,
-                CallVolume = 0,
-                CallOpenInterest = 0,
-                PutLast = 0.01,
-                PutChange = 0,
-                PutBid = 0,
-                PutAsk = 0,
-                PutVolume = 0,
-                PutOpenInterest = 0
-            },
-            new OptionChainRow
-            {
-                Symbol = "AAPL",
-                Last = 145.86,
-                Expiration = new ExpirationDate { Value = expirationDate },
-                Strike = 155,
-                CallLast = 0.01,
-                CallChange = 0,
-                CallBid = 0,
-                CallAsk = 0,
-                CallVolume = 0,
-                CallOpenInterest = 0,
-                PutLast = 0.01,
-                PutChange = 0,
-                PutBid = 0,
-                PutAsk = 0,
-                PutVolume = 0,
-                PutOpenInterest = 0
-            }
-        };
+            };
+
+            optionChain.Add(row);
+        }
 
         return optionChain;
     }
