@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Carousel.Control;assembly=Carousel.Control"
+             x:Class="SampleApp.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <cv:CarouselView WidthRequest="400" ItemsSource="{Binding ControlsToShow, Mode=OneWay}"/>
+
+            <CollectionView x:Name="CarouselArea"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding ControlsToShow, Mode=OneWay}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <ContentView Content="{Binding .}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
