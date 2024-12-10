@@ -31,38 +31,44 @@ public class MainViewModel : ObservableObject
     
     public RelayCommand<RadDataGrid> NextLayout => new((dg) =>
     {
-        MainThread.BeginInvokeOnMainThread(() =>
+        int numColumns = dg.Columns.Count;
+
+        // gridConfig
+        //   .AddColumns()
+        //   .AddGroupDescriptors()
+        //   .AddSortDescriptors();
+
+        // AddColumns
+        dg.Columns.Clear();
+        dg.Columns.Add(new DataGridTextColumn { PropertyName = "Symbol", SizeMode = DataGridColumnSizeMode.Fixed });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "Last" });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "Strike" });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallLast" });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallChange" });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallBid" });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallAsk" });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallVolume" });
+        dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallOpenInterest" });
+
+        if (numColumns != 15)
         {
-            int numColumns = dg.Columns.Count;
+            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutLast" });
+            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutChange" });
+            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutBid" });
+            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutAsk" });
+            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutVolume" });
+            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutOpenInterest" });
+        }
 
-            dg.Columns.Clear();
-            dg.Columns.Add(new DataGridTextColumn { PropertyName = "Symbol", SizeMode = DataGridColumnSizeMode.Fixed });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "Last" });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "Strike" });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallLast" });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallChange" });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallBid" });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallAsk" });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallVolume" });
-            dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "CallOpenInterest" });
+        int count = dg.GroupDescriptors.Count;
 
-            if (numColumns != 15)
-            {
-                dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutLast" });
-                dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutChange" });
-                dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutBid" });
-                dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutAsk" });
-                dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutVolume" });
-                dg.Columns.Add(new DataGridNumericalColumn { PropertyName = "PutOpenInterest" });
-            }
+        // AddGroupDescriptors
+        dg.GroupDescriptors.Clear();
+        dg.GroupDescriptors.Add(new PropertyGroupDescriptor() { PropertyName = "GroupAndSort" });
 
-
-            dg.GroupDescriptors.Clear();
-            dg.GroupDescriptors.Add(new PropertyGroupDescriptor() { PropertyName = "GroupAndSort"});
-
-            dg.SortDescriptors.Clear();
-            dg.SortDescriptors.Add(new PropertySortDescriptor() { PropertyName = "GroupAndSort" });
-        });
+        // AddSortDescriptors
+        dg.SortDescriptors.Clear();
+        dg.SortDescriptors.Add(new PropertySortDescriptor() { PropertyName = "GroupAndSort" });
     });
 
     public RelayCommand Refresh => new(() =>
