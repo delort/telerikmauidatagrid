@@ -69,6 +69,10 @@ public class MainViewModel : ObservableObject
         // AddSortDescriptors
         dg.SortDescriptors.Clear();
         dg.SortDescriptors.Add(new PropertySortDescriptor() { PropertyName = "GroupAndSort" });
+
+        var lastItem = (dg.ItemsSource as IEnumerable<OptionChainRow>).Last();
+        var dataView = dg.GetDataView();
+        dataView.CollapseAll();
     });
 
     public RelayCommand Refresh => new(() =>
